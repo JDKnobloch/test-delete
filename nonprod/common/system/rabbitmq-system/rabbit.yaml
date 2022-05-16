@@ -4,7 +4,7 @@ kind: Application
 metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  name: rabbitmq
+  name: rabbitmq-system
 spec:
   destination:
     namespace: rabbitmq-system
