@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: rabbitmq
+spec:
+  destination:
+    namespace: rabbitmq-system
+    server: 'https://kubernetes.default.svc'
+  project: default
+  revisionHistoryLimit: 2
+  source:
+    chart: rabbitmq-cluster-operator
+    helm:
+      releaseName: rabbitmq-system
+      values: |+
+        fullnameOverride: "rabbitmq-cluster-operator"
+        clusterOperator:
+          image:
+            tag: 1.8.3
+          resources:
+            limits:
+              cpu: 200m
+              memory: 500Mi
+            requests:
+              cpu: 200m
+              memory: 500Mi
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 2.6.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
