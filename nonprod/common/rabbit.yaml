@@ -14,7 +14,7 @@ spec:
   source:
     chart: rabbitmq-cluster-operator
     helm:
-      releaseName: rabbitmq-system
+      releaseName: rabbitmq
       values: |+
         fullnameOverride: "rabbitmq-cluster-operator"
         clusterOperator:
