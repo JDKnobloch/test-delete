@@ -33,9 +33,3 @@ spec:
               enabled: true
     repoURL: 'https://charts.bitnami.com/bitnami'
     targetRevision: 2.6.1
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ApplyOutOfSyncOnly=true
