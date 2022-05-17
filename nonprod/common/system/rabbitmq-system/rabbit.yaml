@@ -31,6 +31,8 @@ spec:
             requests:
               cpu: 200m
               memory: 500Mi
+          rabbitmqImage:
+            tag: 3.8.9-1.el7
           metrics:
             enabled: true
             serviceMonitor:
