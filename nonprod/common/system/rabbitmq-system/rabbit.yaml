@@ -24,8 +24,6 @@ spec:
       values: |+
         fullnameOverride: "rabbitmq-cluster-operator"
         clusterOperator:
-          image:
-            tag: 1.8.3
           resources:
             limits:
               cpu: 200m
