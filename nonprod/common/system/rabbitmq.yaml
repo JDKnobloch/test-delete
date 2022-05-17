@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: rabbitmq-root
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: nonprod/common/system/rabbitmq
+    repoURL: 'https://github.com/JDKnobloch/test-delete.git'
+    targetRevision: HEAD
+  project: default
+  revisionHistoryLimit: 1
