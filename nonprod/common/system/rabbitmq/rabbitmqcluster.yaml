@@ -83,9 +83,6 @@ spec:
   replicas: 3
   service:
     type: LoadBalancer
-  tls:
-    disableNonTLSListeners: false
-    secretName: rabbitmq-tls
   tolerations:
     - effect: "NoSchedule"
       key: "layer"
