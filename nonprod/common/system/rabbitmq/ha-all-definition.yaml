@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+data:
+  ha-all-definition.json: |
+    {
+      "vhosts":[
+        {"name":"/"}
+      ],
+      "policies":[
+        {"vhost":"/","name":"ha-all","pattern":"[a-zA-Z0-9_]*", "definition":{"ha-mode":"all","ha-sync-mode":"automatic"}}
+      ]
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    fluxcd.io/ignore: sync_only
+  name: ha-all-definition
+  namespace: ci
