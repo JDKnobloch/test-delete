@@ -1,0 +1,93 @@
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  annotations:
+    fluxcd.io/ignore: sync_only
+  labels:
+    app: rabbitmq
+  name: rabbitmq
+  namespace: ci
+spec:
+  override:
+    statefulSet:
+      spec:
+        template:
+          metadata:
+            annotations:
+              sidecar.istio.io/inject: "false"
+          spec:
+            containers:
+              - name: rabbitmq
+                volumeMounts:
+                  - mountPath: /etc/rabbitmq/definitions
+                    name: ha-all-definition
+            nodeSelector:
+              rentpath.com/role: data
+            volumes:
+              - configMap:
+                  name: ha-all-definition
+                name: ha-all-definition
+  rabbitmq:
+    additionalConfig: |
+      load_definitions = /etc/rabbitmq/definitions/ha-all-definition.json
+      management_agent.disable_metrics_collector = false
+      management.disable_stats = false
+      management.enable_queue_totals = true
+      prometheus.return_per_object_metrics = true
+      vm_memory_high_watermark.relative = 0.45
+      auth_ldap.dn_lookup_bind.user_dn = uid=nifi-reader,cn=users,cn=accounts,dc=ipa,dc=rentpath,dc=com
+      auth_ldap.dn_lookup_bind.password = qmYxRQbLFhxvYUe6qmFsXDKN
+      auth_ldap.dn_lookup_attribute = nifi-reader@IPA.RENTPATH.COM
+      auth_ldap.dn_lookup_base = cn=users,cn=accounts,dc=ipa,dc=rentpath,dc=com
+      auth_backends.1 = ldap
+      auth_backends.2 = internal
+      auth_ldap.servers.1 = ipa001.useast2.rentpath.com
+      auth_ldap.servers.2 = ipa002.useast2.rentpath.com
+      auth_ldap.user_dn_pattern = uid=${username},cn=users,cn=accounts,dc=ipa,dc=rentpath,dc=com
+      auth_ldap.port = 389
+      auth_ldap.log = network
+    advancedConfig: |
+      [{rabbitmq_auth_backend_ldap,[
+          {vhost_access_query,    {in_group, "cn=developers,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+            {resource_access_query,
+             {for, [{permission, read, {in_group, "cn=developers,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                     {permission, read,
+                      {for, [{resource, queue,    {in_group, "cn=developers,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                             {resource, exchange, {constant, true}}]}},
+                     {permission, read,
+                      {for, [{resource, exchange, {in_group, "cn=developers,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                             {resource, queue,    {constant, true}}]}},
+                    {permission, configure, {in_group, "cn=admins,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                     {permission, write,
+                      {for, [{resource, queue,    {in_group, "cn=admins,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                             {resource, exchange, {constant, true}}]}},
+                     {permission, write,
+                      {for, [{resource, exchange, {in_group, "cn=admins,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                             {resource, queue,    {constant, true}}]}}
+            ]
+          }},
+         {topic_access_query,
+             {for, [{permission, read, {match, {string, "${routing_key}"}, {string, "^a"}}},
+                    {permission, read,  {constant, true}}
+                   ]
+          }},
+         {tag_queries, [ {administrator, {in_group, "cn=admins,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}},
+                         {monitoring, {in_group, "cn=developers,cn=groups,cn=accounts,dc=ipa,dc=rentpath,dc=com", "member"}}]}
+      ]}].
+    additionalPlugins:
+      - rabbitmq_top
+      - rabbitmq_shovel
+      - rabbitmq_shovel_management
+      - rabbitmq_auth_backend_ldap
+  replicas: 3
+  service:
+    type: LoadBalancer
+  tls:
+    disableNonTLSListeners: false
+    secretName: rabbitmq-tls
+  tolerations:
+    - effect: "NoSchedule"
+      key: "layer"
+      operator: "Equal"
+      value: "data"
