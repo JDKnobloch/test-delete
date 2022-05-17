@@ -15,4 +15,4 @@ metadata:
   annotations:
     fluxcd.io/ignore: sync_only
   name: ha-all-definition
-  namespace: ci
+  namespace: default
