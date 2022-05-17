@@ -9,7 +9,6 @@ metadata:
   name: rabbitmq
   namespace: default
 spec:
-  image: 'rabbitmq:3.8.9-management'
   override:
     statefulSet:
       spec:
