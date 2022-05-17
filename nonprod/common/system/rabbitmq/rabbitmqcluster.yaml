@@ -9,6 +9,24 @@ metadata:
   name: rabbitmq
   namespace: default
 spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: rentpath.com/role
+                operator: In
+                values:
+                  - data
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - "rabbitmq"
+          topologyKey: "kubernetes.io/hostname"
   override:
     statefulSet:
       spec:
