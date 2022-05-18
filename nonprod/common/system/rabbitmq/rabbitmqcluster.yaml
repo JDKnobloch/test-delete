@@ -10,7 +10,7 @@ metadata:
   namespace: default
 spec:
   persistence:
-    storage: 20M
+    storage: 50M
   override:
     statefulSet:
       spec:
@@ -83,11 +83,11 @@ spec:
   replicas: 3
   resources:
     limits:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 500m
+      memory: 1
     requests:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 500m
+      memory: 1
   service:
     type: LoadBalancer
   tolerations:
