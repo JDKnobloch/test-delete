@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  name: rabbitmq-root
-  namespace: argocd
-spec:
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ApplyOutOfSyncOnly=true
-  destination:
-    namespace: argocd
-    server: 'https://kubernetes.default.svc'
-  source:
-    path: nonprod/common/system/rabbitmq
-    repoURL: 'https://github.com/JDKnobloch/test-delete.git'
-    targetRevision: HEAD
-    directory:
-      recurse: true
-  project: default
-  revisionHistoryLimit: 1
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   name: rabbitmq-root
+#   namespace: argocd
+# spec:
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - ApplyOutOfSyncOnly=true
+#   destination:
+#     namespace: argocd
+#     server: 'https://kubernetes.default.svc'
+#   source:
+#     path: nonprod/common/system/rabbitmq
+#     repoURL: 'https://github.com/JDKnobloch/test-delete.git'
+#     targetRevision: HEAD
+#     directory:
+#       recurse: true
+#   project: default
+#   revisionHistoryLimit: 1
