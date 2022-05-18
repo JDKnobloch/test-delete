@@ -81,13 +81,13 @@ spec:
       - rabbitmq_shovel_management
       - rabbitmq_auth_backend_ldap
   replicas: 3
-  resources:
-    limits:
-      cpu: 40m
-      memory: 100Mi
-    requests:
-      cpu: 40m
-      memory: 100Mi
+  # resources:
+  #   limits:
+  #     cpu: 40m
+  #     memory: 100Mi
+  #   requests:
+  #     cpu: 40m
+  #     memory: 100Mi
   service:
     type: LoadBalancer
   tolerations:
