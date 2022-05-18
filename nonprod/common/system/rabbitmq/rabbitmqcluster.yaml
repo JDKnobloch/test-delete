@@ -84,10 +84,8 @@ spec:
   resources:
     limits:
       cpu: 500m
-      memory: 1
     requests:
       cpu: 500m
-      memory: 1
   service:
     type: LoadBalancer
   tolerations:
