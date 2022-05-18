@@ -6,6 +6,12 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   name: rabbitmq-system
 spec:
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
   destination:
     namespace: rabbitmq-system
     server: 'https://kubernetes.default.svc'
