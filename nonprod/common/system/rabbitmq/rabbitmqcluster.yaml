@@ -9,6 +9,8 @@ metadata:
   name: rabbitmq
   namespace: default
 spec:
+  persistence:
+    storage: 20M
   override:
     statefulSet:
       spec:
@@ -79,6 +81,13 @@ spec:
       - rabbitmq_shovel_management
       - rabbitmq_auth_backend_ldap
   replicas: 3
+  resources:
+    limits:
+      cpu: 40m
+      memory: 200M
+    requests:
+      cpu: 40m
+      memory: 200M
   service:
     type: LoadBalancer
   tolerations:
