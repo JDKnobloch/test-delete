@@ -29,5 +29,7 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
+              selector:
+                app.kubernetes.io/component: rabbitmq
     repoURL: 'https://charts.bitnami.com/bitnami'
     targetRevision: 2.6.1
