@@ -26,7 +26,6 @@ spec:
               cpu: 200m
               memory: 500Mi
           metrics:
-            enabled: true
             serviceMonitor:
               enabled: true
     repoURL: 'https://charts.bitnami.com/bitnami'
