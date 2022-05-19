@@ -16,7 +16,8 @@ spec:
       tlsConfig:
         insecureSkipVerify: true
   namespaceSelector:
-    any: true
+    matchNames:
+      - ci
   selector:
     matchLabels:
       app.kubernetes.io/component: rabbitmq
