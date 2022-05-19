@@ -7,8 +7,7 @@ spec:
   namespaceSelector:
     any: true
   podMetricsEndpoints:
-    - targetPort: 9782
-      path: /metrics
+    - path: /metrics
   selector:
     matchLabels:
       app.kubernetes.io/component: rabbitmq-operator
