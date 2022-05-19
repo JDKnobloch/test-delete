@@ -7,7 +7,7 @@ spec:
   namespaceSelector:
     any: true
   podMetricsEndpoints:
-    - port: 9782
+    - targetPort: 9782
       path: /metrics
   selector:
     matchLabels:
