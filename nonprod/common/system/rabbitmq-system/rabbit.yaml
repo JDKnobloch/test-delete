@@ -29,6 +29,5 @@ spec:
             enabled: true
             serviceMonitor:
               enabled: true
-              selector: false
     repoURL: 'https://charts.bitnami.com/bitnami'
     targetRevision: 2.6.2
