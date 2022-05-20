@@ -6,12 +6,6 @@ metadata:
   name: rabbitmq-root
   namespace: argocd
 spec:
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ApplyOutOfSyncOnly=true
   destination:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
@@ -19,7 +13,5 @@ spec:
     path: nonprod/common/system/rabbitmq
     repoURL: 'https://github.com/JDKnobloch/test-delete.git'
     targetRevision: HEAD
-    directory:
-      recurse: true
   project: default
   revisionHistoryLimit: 1
