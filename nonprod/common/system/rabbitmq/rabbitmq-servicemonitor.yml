@@ -17,7 +17,7 @@ spec:
         insecureSkipVerify: true
   namespaceSelector:
     matchNames:
-      - ci
+      - default
   selector:
     matchLabels:
       app.kubernetes.io/component: rabbitmq
