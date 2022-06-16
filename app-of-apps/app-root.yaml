@@ -16,7 +16,7 @@ spec:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
   source:
-    path: nonprod/common/system
+    path: job
     repoURL: 'https://github.com/JDKnobloch/test-delete.git'
     targetRevision: HEAD
   project: default

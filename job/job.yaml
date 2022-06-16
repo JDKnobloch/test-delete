@@ -9,7 +9,7 @@ spec:
         - command:
           - /bin/bash
           - -c
-          - curl --request POST --silent --url "https://rossum.vip.ci.useast2.rentpath.com/metrics/reset"
+          - sleep 5m
           image: 'alpine:latest'
           imagePullPolicy: Always
           name: reset-counters-rossum-cron-rentpath-cronjob
