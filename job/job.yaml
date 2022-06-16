@@ -9,8 +9,8 @@ spec:
         - command:
           - /bin/sh
           - -c
-          - sleep 5m
-          image: 'alpine:latest'
+          - curl google.com
+          image: 'alpine/curl:latest'
           imagePullPolicy: Always
           name: reset-counters-rossum-cron-rentpath-cronjob
       restartPolicy: OnFailure
