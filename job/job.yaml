@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - command:
-          - /bin/bash
+          - /bin/sh
           - -c
           - sleep 5m
           image: 'alpine:latest'
