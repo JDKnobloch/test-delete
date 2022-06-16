@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: pluto
+spec:
+   template:
+    spec:
+      containers:
+        - command:
+          - /bin/bash
+          - -c
+          - curl --request POST --silent --url "https://rossum.vip.ci.useast2.rentpath.com/metrics/reset"
+          image: 'alpine:latest'
+          imagePullPolicy: Always
+          name: reset-counters-rossum-cron-rentpath-cronjob
+      restartPolicy: OnFailure
